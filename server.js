@@ -1,6 +1,7 @@
 const path = require("path");
 const fsp = require("fs/promises");
 const express = require("express");
+const morgan = require("morgan");
 
 const root = process.cwd();
 const isProduction = process.env.NODE_ENV === "production";
@@ -10,13 +11,14 @@ function resolve(p) {
 }
 
 async function createServer() {
-  let app = express();
+  const app = express();
   /**
    * @type {import('vite').ViteDevServer}
    */
   let vite;
-
+  let loggerLevel = "tiny";
   if (!isProduction) {
+    loggerLevel = "dev";
     vite = await require("vite").createServer({
       root,
       server: { middlewareMode: "ssr" },
@@ -27,10 +29,9 @@ async function createServer() {
     app.use(require("compression")());
     app.use(express.static(resolve("dist/client")));
   }
-
+  app.use(morgan(loggerLevel)); //TODO change to winston logger
   app.use("*", async (req, res) => {
     let url = req.originalUrl;
-
     try {
       let template;
       let render;
