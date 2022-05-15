@@ -1,0 +1,26 @@
+{
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "unused-imports"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+    "prettier"
+  ],
+  "rules": {
+    "no-empty": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/ban-ts-comment": "warn",
+    "unused-imports/no-unused-imports": "warn",
+    "no-extra-boolean-cast": "warn",
+    "react-hooks/exhaustive-deps": "off",
+    "react/display-name": "off",
+    "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
+    "no-duplicate-imports": "error"
+  }
+}
